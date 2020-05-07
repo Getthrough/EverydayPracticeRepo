@@ -2,10 +2,32 @@ Q1: 分布式系统日志如何跟踪？
 A1: https://blog.csdn.net/zlt2000/article/details/99641821
 
 Q2: 单例模式的 7 种实现方式？
-A2: // TODO
+A2: https://github.com/Getthrough/DesignPatterns/blob/master/README.md
 
 Q3: static 字段是否有必要加 volatile？
-A3:
+A3: static 字段是类字段，在多线程环境下会被共享使用，为了保证 static 字段的更新能及时被各个线程感知到，应该使用 volatile 字段修饰，以保证线程可见性。
 
-Q4: 在一个二维数组中，每一行都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组总是否含有该整数。
+Q4: 在一个二维数组中，每一行都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
 A4: 
+```
+public static boolean isContainNumber(int[][] twoDimensionsArray, int target) {
+		
+		int lastElement = twoDimensionsArray[twoDimensionsArray.length - 1].length - 1;
+		// 如果小于第一个或者大于最后一个，直接返回
+		if (twoDimensionsArray[0][0] > target || twoDimensionsArray[twoDimensionsArray.length - 1][lastElement] < target) {
+			return false;
+		}
+
+		int i = 0;
+		int j = twoDimensionsArray[0].length-1;
+		while(i <= twoDimensionsArray.length-1 && j>= 0) {
+			if(twoDimensionsArray[i][j] == target)
+				return true;
+			else if(target > twoDimensionsArray[i][j])
+				i++;
+			else j--;
+		}
+		return false;
+
+	}
+```
